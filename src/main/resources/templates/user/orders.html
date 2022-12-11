@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Заказы</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link th:href="@{/css/index.css}" type="text/css" ref="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<div class="container text-center" style="margin: 10px">
+<h3 class="container text-center" style="margin: 10px">Заказы</h3>
+<div th:each="order : ${orders}">
+    <h3 th:text="'Заказ № ' + ${order.getNumber()}"></h3>
+    <img th:src="'/img/' + ${order.getProduct().imageList[0].getFileName()}" width="300px">
+    <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>
+    <p th:text="'Количество: ' + ${order.getCount()}"></p>
+    <p th:text="'Цена: ' + ${order.getPrice()}"></p>
+    <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
+    <p th:text="'Статус: ' + ${order.getStatus()}">
+</div>
+</div>
+<br>
+<br>
+<div th:replace="/fragments/footer :: footer"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script th:src="@{/js/index.js}"></script>
+</html>

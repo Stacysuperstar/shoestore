@@ -1,0 +1,13 @@
+
+body {
+    background-image: url("../img/dancing.jpg");
+    height:500px;
+    margin-top: -30px;
+    }
+
+#form{
+    background-color: #f2f2f2;
+    width:300px;
+    margin: 30px auto;
+    padding: 10px;
+    }

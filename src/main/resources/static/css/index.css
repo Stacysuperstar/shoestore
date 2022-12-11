@@ -1,0 +1,41 @@
+a{
+    text-decoration: none;
+    color: midnightblue;
+}
+body{
+    background-image: url("../img/golden-yellow-seamless-venetian-plaster-background.jpg");
+}
+.main{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding: 10px;
+   }
+
+.searchnav{
+    display:grid;
+    grid-template-columns: 1fr;
+    justify-items:left;
+    margin-left:10px;
+}
+.big{
+    display: grid;
+    grid-template-rows: 1fr;
+    padding: 10px;
+}
+.all{
+    display:inline-flex;
+    flex-wrap: wrap;
+    justify-items:center;
+    justify-content: space-around;
+    margin:5px;
+}
+#card {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: stretch;
+    align-content: space-around;
+    justify-items: start;
+    margin:1rem;
+}
+

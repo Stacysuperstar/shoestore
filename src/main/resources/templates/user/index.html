@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" href="../../static/css/index.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<div class="big">
+    <h3 class="container text-center" style="margin: 10px">Личный кабинет пользователя</h3>
+    <div class="main">
+        <div class="searchnav">
+            <div class="cat">
+                <label for="search"><h3>Поиск по категориям:</h3></label>
+                <div class="searchbar">
+                    <div class="cat">
+                        <form  th:method="POST" th:action="@{/product/search_contact(contact = 'latin')}">
+                            <input type="image" src="/img/latin.jpg" width="150px">Туфли для латиноамериканских танцев</form>
+                    </div>
+                    <br>
+                    <div class="cat"><form th:method="POST" th:action="@{/product/search_contact(contact = 'ballroom')}"><input type="image" src="/img/ballroom.jpg" width="150px">Туфли для бальных танцев</form>
+                    </div>
+                    <br>
+                    <div class="cat"><form th:method="POST" th:action="@{/product/search_contact(contact = 'tango')}">
+                        <input type="image" src="/img/tango.jpg" width="150px">Туфли для танго</form>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <form th:method="POST" th:action="@{/product/search}">
+                        <fieldset>
+                            <legend><h3 style="margin-top:10px">Выберите параметры для сортировки:</h3></legend>
+                            <br>
+                            <label for="search"><h5>Поиск по наименованию:</h5></label>
+                            <input name="search" id="search" th:value="*{value_search}" style="width: 100%;margin-bottom:5px;">
+                            <br>
+                            <h5>Цена, ₽:</h5>
+                            <label for="ot">Oт</label>
+                            <input type="text" name="ot" id="ot" th:value="*{value_price_ot}" style="width: 40%;" >
+                            <label for="do">До</label>
+                            <input type="text" name="do" id="do" th:value="*{value_price_do}" style="width: 40%;" >
+                            <br>
+                            <label for="ascending_price">Отсортировать по возрастанию цены</label>
+                            <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price" checked>
+                            <br>
+                            <label for="descending_price">Отсортировать по убыванию цены</label>
+                            <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
+                            <br>
+                            <h5>Категория товаров: </h5>
+                            <label for="latin">Туфли для латиноамериканских танцев</label>
+                            <input type="radio" id="latin" name="contact" value="latin">
+                            <br>
+                            <label for="ballroom">Туфли для бальных танцев</label>
+                            <input type="radio" id="ballroom" name="contact" value="ballroom">
+                            <br>
+                            <label for="tango">Туфли для танго</label>
+                            <input type="radio" id="tango" name="contact" value="tango">
+                            <br>
+                            <input class="btn btn-primary" type="submit" value="Найти">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h3>Результат:</h3>
+            <div class="row row-cols-3">
+                <div th:each="product : ${search_product}">
+                    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
+                    <br>
+                    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+                    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="all">
+        <h3 style="margin:1rem">Доступные товары:</h3>
+        <div>
+            <div class="row">
+                <div class="row row-cols-3" id="card">
+                    <div th:each="product : ${products}" style="margin:1rem">
+                        <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
+                        <br>
+                        <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+                        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+                        <a type="submit" class="btn btn-success" th:href="@{/cart/add/{id}(id=${product.getId()})}">Добавить в корзину</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/fragments/footer :: footer"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script th:src="@{/js/index.js}"></script>
+</html>
